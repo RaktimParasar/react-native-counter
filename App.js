@@ -6,13 +6,32 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View, Button} from 'react-native';
 
 const App = () => {
+  const [counter, setCounter] = useState(0);
+  const [clicked, setClicked] = useState(0);
+
+  const increment = () => {
+    setCounter(prevCount => prevCount + 1);
+    setClicked(prevCount => prevCount + 1);
+  };
+
+  const decrement = () => {
+    setCounter(prevCount => prevCount - 1);
+    setClicked(prevCount => prevCount + 1);
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Hello, world!</Text>
+      <Text style={styles.counterText}>{counter}</Text>
+      <Text style={styles.clickedText}>Total button clicked {clicked}</Text>
+      <View style={styles.btnContainer}>
+        <Button onPress={increment} title="Increment" color="#038039" />
+        <Text>...</Text>
+        <Button onPress={decrement} title="Decrement" color="#fc0377" />
+      </View>
     </View>
   );
 };
@@ -23,11 +42,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
-  text: {
-    fontSize: 30,
+  counterText: {
+    fontSize: 60,
     color: 'blue',
     fontWeight: 'bold',
+  },
+  clickedText: {
+    fontSize: 20,
+    color: 'grey',
+  },
+  btnContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 20,
+    justifyContent: 'space-between',
   },
 });
 
